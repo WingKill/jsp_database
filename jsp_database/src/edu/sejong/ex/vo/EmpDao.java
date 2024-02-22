@@ -6,17 +6,19 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class EmpDao {
-	private String driver = "oracle.jdbc.driver.OracleDriver";
-	private String url = "jdbc:oracle:thin:@//localhost:1521/xe";
-	private String id = "scott";
-	private String pw = "tiger";
-	
-	private ArrayList<EmpDto> empList = empList();
+	// 커넥션 풀 객체
+	private DataSource dataSource = null;
 	public EmpDao() {
 		try {
-			Class.forName(driver);
+			Context context = new InitialContext();
+			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/oracle");
 		} catch (Exception e) {
 			
 		}
@@ -26,7 +28,7 @@ public class EmpDao {
 		ArrayList<EmpDto> emps = new ArrayList<EmpDto>();
 		
 		String sql = "select * from emp";
-		try(Connection connection = DriverManager.getConnection(url,id,pw);
+		try(Connection connection = dataSource.getConnection();
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery(sql)){
 			
@@ -52,6 +54,17 @@ public class EmpDao {
 	}
 	
 	public ArrayList<EmpDto> getEmpList(){
-		return empList;
+		return empList();
+	}
+	
+	public String getHtml() {
+		String html = "";
+		
+		List<EmpDto> emps = empList();
+		
+		for(EmpDto emp : emps) {
+			html = html + emp; 
+		}
+		return html;
 	}
 }

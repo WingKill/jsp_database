@@ -1,12 +1,6 @@
+<%@page import="edu.sejong.ex.vo.DeptVo"%>
 <%@page import="java.util.List"%>
-<%@page import="making.vo.DeptVo_Ex"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="making.vo.DeptDao_Ex"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
+<%@page import="edu.sejong.ex.vo.DeptDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,11 +11,11 @@
 </head>
 <body>
 <%
-	DeptDao_Ex deptDao = new DeptDao_Ex();
+	DeptDao deptDao = new DeptDao();
 
-	List<DeptVo_Ex> dtos = deptDao.deptList();
+	List<DeptVo> dtos = deptDao.deptList();
 	out.print("-----------------------");
-	for(DeptVo_Ex vo : dtos){
+	for(DeptVo vo : dtos){
 		
 		out.print("<h4>부서번호 : "+vo.getDeptno()+"</h4>");
 		out.print("<h4>부서명 : "+vo.getDname()+"</h4>");
