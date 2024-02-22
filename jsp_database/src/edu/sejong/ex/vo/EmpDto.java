@@ -1,6 +1,5 @@
 package edu.sejong.ex.vo;
 
-import java.sql.Timestamp;
 
 //이름       널?       유형           
 //-------- -------- ------------ 
@@ -17,7 +16,7 @@ public class EmpDto {
 	private String ename;
 	private String job;
 	private String mgr;
-	private Timestamp hiredate;
+	private String hiredate;
 	private int sal;
 	private String comm;
 	private int deptno;
@@ -26,7 +25,7 @@ public class EmpDto {
 	
 	}
 	
-	public EmpDto(int empNo,String ename,String job,String mgr,Timestamp hiredate,int sal,String comm,int deptno) {
+	public EmpDto(int empNo,String ename,String job,String mgr,String hiredate,int sal,String comm,int deptno) {
 		this.empNo = empNo;
 		this.ename = ename;
 		this.job = job;
@@ -69,11 +68,11 @@ public class EmpDto {
 		this.mgr = mgr;
 	}
 
-	public Timestamp getHiredate() {
+	public String getHiredate() {
 		return hiredate;
 	}
 
-	public void setHiredate(Timestamp hiredate) {
+	public void setHiredate(String hiredate) {
 		this.hiredate = hiredate;
 	}
 

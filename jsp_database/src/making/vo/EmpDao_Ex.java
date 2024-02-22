@@ -70,6 +70,33 @@ public class EmpDao_Ex {
 		return jobs;
 	}
 	
+	public ArrayList<EmpDto_Ex> getMgrs(){
+		ArrayList<EmpDto_Ex> emps = new ArrayList<EmpDto_Ex>();
+		
+		String sql = "select * from emp where job = 'MANAGER'"; 
+		try(Connection connection = dataSource.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql)){			
+			while(rs.next()){
+				int empNo = rs.getInt("empno");
+				String ename = rs.getString("ename"); 
+				String job = rs.getString("job");
+				String mgr = rs.getString("mgr");
+				Timestamp hiredate = rs.getTimestamp("hiredate");
+				int sal = rs.getInt("sal");
+				String comm = rs.getString("comm");
+				int deptno = rs.getInt("deptno");
+				
+				EmpDto_Ex dto = new EmpDto_Ex(empNo,ename,job,mgr,hiredate,sal,comm,deptno);
+				
+				emps.add(dto);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return emps;
+	}
+	
 	public int insert(EmpDto_Ex emp){
 		Connection conn = null;
 		//Statement stmt = null;
@@ -78,7 +105,7 @@ public class EmpDao_Ex {
 
 		String sql = "Insert into emp01(empno,ename,job,mgr,hiredate,sal,comm,deptno) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		System.out.println("sql 확인 : " + sql);
-		int result = -1;
+		int result = 0;
 		try{
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);

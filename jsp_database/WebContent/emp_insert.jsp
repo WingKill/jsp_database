@@ -1,7 +1,7 @@
-<%@page import="making.vo.EmpDto_Ex"%>
-<%@page import="making.vo.EmpDao_Ex"%>
-<%@page import="java.util.Date"%>
+<%@page import="edu.sejong.ex.vo.EmpDao"%>
+<%@page import="edu.sejong.ex.vo.EmpDto"%>
 <%@page import="java.sql.Timestamp"%>
+<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,26 +14,24 @@
 <body>
 <%
 	request.setCharacterEncoding("UTF-8");
-
+	
 	int empNo = Integer.parseInt(request.getParameter("empno"));
-	String dname = request.getParameter("dname");
+	String dname = request.getParameter("ename");
 	String job = request.getParameter("job");
 	String mgr = request.getParameter("mgr");
-	String hiredateStr = request.getParameter("hiredate");
+	String hiredate = request.getParameter("hiredate");
 	// 형변환시키기
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	Date date = sdf.parse(hiredateStr);
-	Timestamp hiredate = new Timestamp(date.getTime()); 	
-	
+
 	int sal = Integer.parseInt(request.getParameter("sal"));
 	String comm = request.getParameter("comm");
 	int deptno = Integer.parseInt(request.getParameter("deptno"));
 	
-	EmpDto_Ex dto = new EmpDto_Ex(empNo, dname, job, mgr ,hiredate, sal, comm, deptno);
+	EmpDto dto = new EmpDto(empNo,dname,job,mgr,hiredate,sal,comm,deptno);
 	
-	EmpDao_Ex dao = new EmpDao_Ex();
+	EmpDao dao = new EmpDao();
 	dao.insert(dto);
+	response.sendRedirect("emp_list.jsp");
 %>
-<a href="emp01_list.jsp">리스트 확인하기</a>
+
 </body>
 </html>

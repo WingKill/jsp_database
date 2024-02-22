@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<a href="emp_insert_form_prac.jsp">뒤로</a><br>
 <%
 	EmpDao empDao = new EmpDao();
 	ArrayList<EmpDto> dtos = empDao.empList();

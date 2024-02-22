@@ -19,17 +19,17 @@
 	EmpDao_Ex empDao = new EmpDao_Ex();
 	
 	List<String> empJobs = empDao.getJobs();
-	List<EmpDto_Ex> empMgrs = empDao.getEmpList();
+	List<EmpDto_Ex> empMgrs = empDao.getMgrs();
 %>
 <form action="emp_inserting.jsp" method="post">
 	<table>
 		<tr>
 			<td>사원번호</td>		
-			<td><input type="number" name="empno" min="1" max="99" ></td>
+			<td><input type="number" name="empno"></td>
 		</tr>
 		<tr>
 			<td>사원이름</td>		
-			<td><input type="text" name="dname"></td>
+			<td><input type="text" name="dname" ></td>
 		</tr>
 		<tr>
 			<td>직급</td>		
