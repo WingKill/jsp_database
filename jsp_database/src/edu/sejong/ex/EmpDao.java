@@ -1,4 +1,4 @@
-package edu.sejong.ex.vo;
+package edu.sejong.ex;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +13,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import edu.sejong.ex.vo.DeptVo;
+import edu.sejong.ex.vo.EmpDeptDto;
+import edu.sejong.ex.vo.EmpDto;
 import making.vo.EmpDto_Ex;
 
 public class EmpDao {
@@ -25,6 +28,44 @@ public class EmpDao {
 		} catch (Exception e) {
 			
 		}
+	}
+	
+	public int getRandom() {
+		return (int)(Math.random()*6 + 1);
+	}
+	
+	public List<EmpDeptDto> empDeptList(){
+		List<EmpDeptDto> empDepts = new ArrayList<EmpDeptDto>();
+		
+		String sql = "select * from emp,dept where emp.deptno = dept.deptno";
+		try(Connection connection = dataSource.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql)){
+			
+			
+			while(rs.next()){
+				int empNo = rs.getInt("empno");
+				String ename = rs.getString("ename"); 
+				String job = rs.getString("job");
+				String mgr = rs.getString("mgr");
+				String hiredate = rs.getString("hiredate");
+				int sal = rs.getInt("sal");
+				String comm = rs.getString("comm");
+				int deptno = rs.getInt("deptno");
+				
+				DeptVo deptVo = new DeptVo();
+				deptVo.setDeptno(deptno);
+				deptVo.setDname(rs.getString("dname"));
+				deptVo.setLoc(rs.getString("loc"));
+				
+				EmpDeptDto dto = new EmpDeptDto(empNo,ename,job,mgr,hiredate,sal,comm,deptno,deptVo);
+				
+				empDepts.add(dto);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return empDepts;
 	}
 	
 	public ArrayList<EmpDto> empList(){
@@ -54,6 +95,36 @@ public class EmpDao {
 			e.printStackTrace();
 		}
 		return emps;
+	}
+	
+	public DeptVo empDeptMember(EmpDto emp){
+		DeptVo deptDto = new DeptVo();
+		ResultSet rs = null;
+		String sql = "select "
+					+"e.deptno, "
+					+"dname, "
+					+"loc "
+					+"from emp e, dept d where e.deptno = d.deptno and e.empno = ?";
+		try(Connection connection = dataSource.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);){
+			statement.setInt(1, emp.getEmpNo());
+			rs = statement.executeQuery();			
+			if(rs.next()) {
+				deptDto.setDeptno(rs.getInt("deptno"));
+				deptDto.setDname(rs.getString("dname"));
+				deptDto.setLoc(rs.getString("loc"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+			}catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return deptDto;
 	}
 	
 	public int insert(EmpDto emp){

@@ -1,4 +1,4 @@
-package edu.sejong.ex.vo;
+package edu.sejong.ex;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.sejong.ex.vo.DeptVo;
 
 /*Data Access Object*/
 //이름     널?       유형           
@@ -26,6 +28,10 @@ public class DeptDao {
 		} catch (Exception e) {
 			
 		}
+	}
+	
+	public List<DeptVo> getdeptList(){
+		return deptList();
 	}
 	
 	public List<DeptVo> deptList(){

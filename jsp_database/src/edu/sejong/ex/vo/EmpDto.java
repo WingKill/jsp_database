@@ -21,6 +21,7 @@ public class EmpDto {
 	private String comm;
 	private int deptno;
 	
+	
 	public EmpDto() {
 	
 	}
@@ -113,7 +114,8 @@ public class EmpDto {
 				"부서번호: "+deptno+"<br>";
 	}
 	
-	public String getEmp() {
-		return toString();
-	}
+//	public String getEmp() {
+//		String emp = toString();
+//		return emp;
+//	}
 }

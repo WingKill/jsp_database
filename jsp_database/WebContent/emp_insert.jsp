@@ -1,4 +1,4 @@
-<%@page import="edu.sejong.ex.vo.EmpDao"%>
+<%@page import="edu.sejong.ex.EmpDao"%>
 <%@page import="edu.sejong.ex.vo.EmpDto"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="java.util.Date"%>

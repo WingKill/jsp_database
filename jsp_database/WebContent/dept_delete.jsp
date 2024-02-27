@@ -1,4 +1,4 @@
-<%@page import="edu.sejong.ex.vo.DeptDao"%>
+<%@page import="edu.sejong.ex.DeptDao"%>
 <%@page import="edu.sejong.ex.vo.DeptVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

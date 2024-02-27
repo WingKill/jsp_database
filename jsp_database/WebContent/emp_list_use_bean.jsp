@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<jsp:useBean id="empDao" class="edu.sejong.ex.vo.EmpDao"/>
+<jsp:useBean id="empDao" class="edu.sejong.ex.EmpDao"/>
 <jsp:getProperty property="html" name="empDao" />
 
 </body>
